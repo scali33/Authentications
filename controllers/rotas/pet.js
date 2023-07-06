@@ -1,5 +1,6 @@
 const model = new require('../../models/pet')
 const usuario = new require('../../models/usuario')
+const auth = require('../auth')
 const rota = 'pets'
 module.exports = (app)=>{
     app.post(`/cadastrar/${rota}`, async (req, res)=>{

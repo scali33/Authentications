@@ -20,20 +20,20 @@ module.exports = (app)=>{
         }
      })
     
-    app.get(`/consultar/${rota}/:id?`,auth.validarToken, async (req, res)=>{
-        let dados = req.params.id? await model.findOne({where:{id:req.params.id}}) : 
-        await model.findAll()
+    app.get(`/consultar/${rota}/:id`,auth.validarToken, async (req, res)=>{
+        let dados =  await model.findOne({where:{id:req.usuarioAtual.id}})  
         res.json(dados)
     })
     app.put(`/atualizar/${rota}`,auth.validarToken, async (req, res) => {
         let id = req.usuarioAtual.id
         console.log(id)
-        let dados = req.body
+        let {nome,cpf,telefone,whatsapp} = req.body
+        let dados = {nome,cpf,telefone,whatsapp}
         let respBd = await model.update(dados, {where:{id:id}})
         res.json(respBd)
     })
-    app.delete(`/excluir/${rota}/:id`,auth.validarToken, async (req, res) => {
-        let id = req.params.id
+    app.delete(`/excluir/${rota}`,auth.validarToken, async (req, res) => {
+        let id = req.usuarioAtual.id
         let respBd = await model.destroy({where:{id:id}})
         res.json(respBd)
     })
