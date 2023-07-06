@@ -1,9 +1,9 @@
 const model = new require("../../models/usuario")
 const auth = require("../auth")
 const verificarEmailExistente = require("../verifyemail")
-var rota = 'email'
+
 module.exports = (app)=>{
-    app.put(`/atualizar/${rota}`, auth.validarToken, async (req, res) => {
+    app.put(`/atualizar/email`, auth.validarToken, async (req, res) => {
         try {
           const id = req.usuarioAtual.id;
           const { email } = req.body;
